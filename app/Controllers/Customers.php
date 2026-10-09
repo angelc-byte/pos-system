@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Controllers;
@@ -30,7 +31,9 @@ class Customers extends BaseController
     public function create()
     {
         if (! $this->validate($this->rulesWithAvatar())) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
         }
 
         $data = [
@@ -41,19 +44,25 @@ class Customers extends BaseController
         ];
 
         if ($this->hasAvatarUpload()) {
-            $data['avatar'] = (new AvatarManager())->store($this->request->getFile('avatar'), 'customers');
+            $data['avatar'] = (new AvatarManager())->store(
+                $this->request->getFile('avatar'),
+                'customers'
+            );
         }
 
         (new CustomerModel())->insert($data);
 
-        return redirect()->to('/customers')->with('success', 'Customer account created successfully.');
+        return redirect()->to(site_url('customers'))
+            ->with('success', 'Customer account created successfully.');
     }
 
     public function edit(int $id)
     {
         $customer = (new CustomerModel())->find($id);
+
         if (! $customer) {
-            return redirect()->to('/customers')->with('error', 'Customer account not found.');
+            return redirect()->to(site_url('customers'))
+                ->with('error', 'Customer account not found.');
         }
 
         return view('customers/form', [
@@ -67,12 +76,16 @@ class Customers extends BaseController
     {
         $model = new CustomerModel();
         $customer = $model->find($id);
+
         if (! $customer) {
-            return redirect()->to('/customers')->with('error', 'Customer account not found.');
+            return redirect()->to(site_url('customers'))
+                ->with('error', 'Customer account not found.');
         }
 
         if (! $this->validate($this->rulesWithAvatar($id))) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
         }
 
         $data = [
@@ -82,8 +95,13 @@ class Customers extends BaseController
         ];
 
         $avatars = new AvatarManager();
+
         if ($this->hasAvatarUpload()) {
-            $data['avatar'] = $avatars->store($this->request->getFile('avatar'), 'customers');
+            $data['avatar'] = $avatars->store(
+                $this->request->getFile('avatar'),
+                'customers'
+            );
+
             $avatars->delete($customer['avatar'] ?? null, 'customers');
         } elseif ($this->request->getPost('remove_avatar')) {
             $avatars->delete($customer['avatar'] ?? null, 'customers');
@@ -92,24 +110,32 @@ class Customers extends BaseController
 
         $model->update($id, $data);
 
-        return redirect()->to('/customers')->with('success', 'Customer account updated successfully.');
+        return redirect()->to(site_url('customers'))
+            ->with('success', 'Customer account updated successfully.');
     }
 
     public function delete(int $id)
     {
         $model = new CustomerModel();
         $customer = $model->find($id);
+
         if ($customer) {
-            (new AvatarManager())->delete($customer['avatar'] ?? null, 'customers');
+            (new AvatarManager())->delete(
+                $customer['avatar'] ?? null,
+                'customers'
+            );
+
             $model->delete($id);
         }
 
-        return redirect()->to('/customers')->with('success', 'Customer account removed.');
+        return redirect()->to(site_url('customers'))
+            ->with('success', 'Customer account removed.');
     }
 
     private function rules(?int $id = null): array
     {
         $emailRule = 'required|valid_email|max_length[150]';
+
         if ($id !== null) {
             $emailRule .= '|is_unique[customers.email,id,' . $id . ']';
         } else {
@@ -126,6 +152,7 @@ class Customers extends BaseController
     private function rulesWithAvatar(?int $id = null): array
     {
         $rules = $this->rules($id);
+
         if ($this->hasAvatarUpload()) {
             $rules['avatar'] = 'uploaded[avatar]|is_image[avatar]|mime_in[avatar,image/jpg,image/jpeg,image/png,image/webp]|ext_in[avatar,jpg,jpeg,png,webp]|max_size[avatar,2048]';
         }

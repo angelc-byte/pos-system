@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Controllers;
@@ -65,7 +66,7 @@ class Users extends BaseController
 
         (new UserModel())->insert($data);
 
-        return redirect()->to('/users')
+        return redirect()->to(site_url('users'))
             ->with('success', 'User account created successfully.');
     }
 
@@ -74,7 +75,7 @@ class Users extends BaseController
         $user = (new UserModel())->find($id);
 
         if (! $user) {
-            return redirect()->to('/users')
+            return redirect()->to(site_url('users'))
                 ->with('error', 'User account not found.');
         }
 
@@ -91,7 +92,7 @@ class Users extends BaseController
         $user = $model->find($id);
 
         if (! $user) {
-            return redirect()->to('/users')
+            return redirect()->to(site_url('users'))
                 ->with('error', 'User account not found.');
         }
 
@@ -132,22 +133,24 @@ class Users extends BaseController
         if ($id === (int) $this->session->get('user_id')) {
             $fresh = $model->find($id);
 
-            $this->session->set([
-                'username'  => $fresh['username'],
-                'full_name' => $fresh['full_name'],
-                'email'     => $fresh['email'] ?? '',
-                'avatar'    => $fresh['avatar'] ?? '',
-            ]);
+            if ($fresh) {
+                $this->session->set([
+                    'username'  => $fresh['username'],
+                    'full_name' => $fresh['full_name'],
+                    'email'     => $fresh['email'] ?? '',
+                    'avatar'    => $fresh['avatar'] ?? '',
+                ]);
+            }
         }
 
-        return redirect()->to('/users')
+        return redirect()->to(site_url('users'))
             ->with('success', 'User account updated successfully.');
     }
 
     public function delete(int $id)
     {
         if ($id === (int) $this->session->get('user_id')) {
-            return redirect()->to('/users')
+            return redirect()->to(site_url('users'))
                 ->with('error', 'You cannot delete the account you are currently using.');
         }
 
@@ -163,7 +166,7 @@ class Users extends BaseController
             $model->delete($id);
         }
 
-        return redirect()->to('/users')
+        return redirect()->to(site_url('users'))
             ->with('success', 'User account removed.');
     }
 

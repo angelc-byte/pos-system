@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Controllers;
@@ -9,14 +10,22 @@ class Pages extends BaseController
 {
     public function home()
     {
-        $customers = (new CustomerModel())->orderBy('created_at', 'DESC')->findAll(5);
-        $users = (new UserModel())->orderBy('created_at', 'DESC')->findAll(5);
+        $customerModel = new CustomerModel();
+        $userModel = new UserModel();
+
+        $customers = $customerModel
+            ->orderBy('created_at', 'DESC')
+            ->findAll(5);
+
+        $users = $userModel
+            ->orderBy('created_at', 'DESC')
+            ->findAll(5);
 
         return view('home', [
-            'pageTitle'     => 'Dashboard',
-            'activePage'    => 'dashboard',
-            'customerCount' => (new CustomerModel())->countAllResults(),
-            'userCount'     => (new UserModel())->countAllResults(),
+            'pageTitle'       => 'Dashboard',
+            'activePage'      => 'dashboard',
+            'customerCount'   => $customerModel->countAllResults(),
+            'userCount'       => $userModel->countAllResults(),
             'recentCustomers' => $customers,
             'recentUsers'     => $users,
         ]);

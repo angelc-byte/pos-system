@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Controllers;
@@ -9,37 +10,36 @@ use Psr\Log\LoggerInterface;
 
 /**
  * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
+ * and performing functions needed by all application controllers.
  *
- * Extend this class in any new controllers:
- * ```
- *     class Home extends BaseController
- * ```
- *
- * For security, be sure to declare any new methods as protected or private.
+ * Extend this class in new controllers.
  */
 abstract class BaseController extends Controller
 {
     /**
-     * Be sure to declare properties for any property fetch you initialized.
-     * The creation of dynamic property is deprecated in PHP 8.2.
+     * Session service available to controllers extending BaseController.
+     *
+     * @var \CodeIgniter\Session\Session
      */
-
     protected $session;
 
     /**
+     * Initialize the controller.
+     *
      * @return void
      */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        // Load here all helpers you want to be available in your controllers that extend BaseController.
-        // Caution: Do not put the this below the parent::initController() call below.
-        $this->helpers = ['form', 'url'];
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ) {
+        // Load helpers used throughout the application.
+        helper(['form', 'url']);
 
-        // Caution: Do not edit this line.
+        // Initialize the parent controller.
         parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
+        // Initialize the session service.
         $this->session = service('session');
     }
 }
