@@ -8,7 +8,8 @@ class Auth extends BaseController
 {
     public function login()
     {
-        if ($this->session->get('isLoggedIn')) {
+        // Redirect users who are already logged in.
+        if (session('isLoggedIn')) {
             return redirect()->to('/');
         }
 
@@ -25,33 +26,61 @@ class Auth extends BaseController
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('errors', $this->validator->getErrors());
         }
 
         $username = trim((string) $this->request->getPost('username'));
-        $user = (new UserModel())->where('username', $username)->first();
 
-        if (! $user || empty($user['password']) || ! password_verify((string) $this->request->getPost('password'), $user['password'])) {
-            return redirect()->back()->withInput()->with('error', 'The username or password is incorrect.');
+        $user = (new UserModel())
+            ->where('username', $username)
+            ->first();
+
+        if (
+            ! $user ||
+            empty($user['password']) ||
+            ! password_verify(
+                (string) $this->request->getPost('password'),
+                $user['password']
+            )
+        ) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'The username or password is incorrect.');
         }
 
+        // Regenerate the session after successful authentication.
         $this->session->regenerate(true);
+
+        // Store the user's account details and role.
         $this->session->set([
             'user_id'    => $user['id'],
             'username'   => $user['username'],
             'full_name'  => $user['full_name'],
             'email'      => $user['email'] ?? '',
             'avatar'     => $user['avatar'] ?? '',
+            'role'       => $user['role'] ?? 'customer',
             'isLoggedIn' => true,
+            'isGuest'    => false,
         ]);
 
-        return redirect()->to('/')->with('success', 'Welcome back, ' . $user['full_name'] . '.');
+        return redirect()
+            ->to('/')
+            ->with(
+                'success',
+                'Welcome back, ' . $user['full_name'] . '.'
+            );
     }
 
     public function logout()
     {
         $this->session->destroy();
 
-        return redirect()->to('/login')->with('success', 'You have been signed out safely.');
+        return redirect()
+            ->to('/login')
+            ->with('success', 'You have been signed out safely.');
     }
 }

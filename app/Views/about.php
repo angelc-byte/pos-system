@@ -2,13 +2,13 @@
 
 <?= $this->section('content') ?>
 <section class="page-heading">
-    <div><p class="eyebrow">System information</p><h1>About Northstar POS</h1><p>A focused account-management project built with CodeIgniter 4.</p></div>
+    <div><p class="eyebrow">System information</p><h1>About The Daily Fit</h1><p>A focused account-management project built with CodeIgniter 4.</p></div>
 </section>
 
 <section class="about-grid">
     <article class="panel about-main">
         <span class="about-mark"><svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m8 10 4 2.2 4-2.2M12 12.2V17"/></svg></span>
-        <p class="eyebrow">Northstar POS</p>
+        <p class="eyebrow">The Daily Fit</p>
         <h2>Simple records. Secure access.</h2>
         <p>This application demonstrates a clean MVC structure, database-backed customer and user management, session-based authentication, and route protection through CodeIgniter filters.</p>
         <div class="tag-list"><span>CodeIgniter 4</span><span>PHP 8.2</span><span>MySQL</span><span>Responsive UI</span></div>

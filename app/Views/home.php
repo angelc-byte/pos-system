@@ -1,71 +1,245 @@
 <?= $this->extend('layouts/app') ?>
 
 <?= $this->section('content') ?>
-<section class="page-heading dashboard-heading">
-    <div>
-        <p class="eyebrow">Store overview</p>
-        <h1>Good <?= date('H') < 12 ? 'morning' : (date('H') < 18 ? 'afternoon' : 'evening') ?>, <?= esc(explode(' ', (string) session('full_name'))[0] ?? 'there') ?>.</h1>
-        <p>Here is a quick look at your POS account directory.</p>
-    </div>
+
+
+<section class="store-actions">
+
     <div class="heading-actions">
-        <a class="button button-secondary" href="<?= base_url('/customers/new') ?>">Add customer</a>
-        <a class="button button-primary" href="<?= base_url('/users/new') ?>">Add team member</a>
+
+        <a href="<?= base_url('/guest') ?>" class="button button-secondary">
+            Continue as Guest
+        </a>
+
+
+<a class="button button-primary" href="<?= site_url('login') ?>">
+    Login / Sign Up
+</a>
+
     </div>
+
 </section>
 
-<section class="stats-grid" aria-label="Account totals">
-    <article class="stat-card stat-card-primary">
-        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-        <div><span>Customer accounts</span><strong><?= number_format($customerCount) ?></strong><small>Stored customer profiles</small></div>
-        <a href="<?= base_url('/customers') ?>" aria-label="View customers">↗</a>
-    </article>
-    <article class="stat-card stat-card-purple">
-        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg></div>
-        <div><span>Team members</span><strong><?= number_format($userCount) ?></strong><small>Authorized POS users</small></div>
-        <a href="<?= base_url('/users') ?>" aria-label="View team members">↗</a>
-    </article>
-    <article class="stat-card stat-card-green">
-        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></div>
-        <div><span>Security status</span><strong class="status-word">Protected</strong><small>Session access is active</small></div>
-        <span class="live-badge"><i></i> Live</span>
-    </article>
+
+<!-- FEATURED PRODUCTS -->
+
+<section class="featured-products">
+
+
+    <div class="section-header">
+
+
+        <div>
+
+            <p class="eyebrow">
+                Collection
+            </p>
+
+
+            <h2>
+                Featured Products
+            </h2>
+
+        </div>
+
+
+
+        <a class="text-link" href="<?= base_url('/products') ?>">
+
+            View all <span>→</span>
+
+        </a>
+
+
+    </div>
+
+
+
+
+    <div class="featured-grid">
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/465760/item/phgoods_03_465760_3x4.jpg?width=300"
+                alt="Mini T-Shirt"
+            >
+
+
+            <h3>
+                Mini T-Shirt
+            </h3>
+
+
+            <p>
+                Tops
+            </p>
+
+
+        </article>
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/481602/item/phgoods_31_481602_3x4.jpg?width=300"
+                alt="Reversible Parka"
+            >
+
+
+            <h3>
+                Reversible Parka
+            </h3>
+
+
+            <p>
+                Outerwear
+            </p>
+
+
+        </article>
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/488455/item/phgoods_30_488455_3x4.jpg?width=300"
+                alt="Denim Culotte"
+            >
+
+
+            <h3>
+                Denim Culotte
+            </h3>
+
+
+            <p>
+                Bottoms
+            </p>
+
+
+        </article>
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/492353/item/phgoods_11_492353_3x4.jpg?width=300"
+                alt="Boxy Short Sleeve Shirt"
+            >
+
+
+            <h3>
+                Boxy Short Sleeve Shirt
+            </h3>
+
+
+            <p>
+                Tops
+            </p>
+
+
+        </article>
+                <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/487855/item/phgoods_32_487855_3x4.jpg?width=300"
+                alt="Relaxed Cardigan"
+            >
+
+
+            <h3>
+                Relaxed Cardigan
+            </h3>
+
+
+            <p>
+                Sweaters & Knitwear
+            </p>
+
+
+        </article>
+
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/484062/item/phgoods_00_484062_3x4.jpg?width=300"
+                alt="Shirt Dress"
+            >
+
+
+            <h3>
+                Shirt Dress
+            </h3>
+
+
+            <p>
+                Dresses & Skirts
+            </p>
+
+
+        </article>
+
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/482280/item/phgoods_64_482280_3x4.jpg?width=300"
+                alt="Barrel Jeans"
+            >
+
+
+            <h3>
+                Barrel Jeans
+            </h3>
+
+
+            <p>
+                Bottoms
+            </p>
+
+
+        </article>
+
+
+
+
+        <article class="featured-card">
+
+            <img 
+                src="https://image.uniqlo.com/UQ/ST3/ph/imagesgoods/469871/item/phgoods_30_469871_3x4.jpg?width=300"
+                alt="Puff Parka"
+            >
+
+
+            <h3>
+                Puff Parka
+            </h3>
+
+
+            <p>
+                Outerwear
+            </p>
+
+
+        </article>
+
+
+
+    </div>
+
+
 </section>
 
-<section class="dashboard-grid">
-    <article class="panel">
-        <div class="panel-header">
-            <div><p class="eyebrow">Customers</p><h2>Recently added</h2></div>
-            <a class="text-link" href="<?= base_url('/customers') ?>">View all <span>→</span></a>
-        </div>
-        <div class="activity-list">
-            <?php if (empty($recentCustomers)): ?><div class="empty-compact">No customer records yet.</div><?php endif; ?>
-            <?php foreach ($recentCustomers as $customer): ?>
-                <?php $parts = array_filter(explode(' ', $customer['full_name'])); $initial = strtoupper(substr($parts[0] ?? 'C', 0, 1) . substr(end($parts) ?: '', 0, 1)); $avatarFile = basename((string) ($customer['avatar'] ?? '')); $avatarUrl = $avatarFile && is_file(FCPATH . 'uploads/customers/' . $avatarFile) ? base_url('uploads/customers/' . rawurlencode($avatarFile)) : null; ?>
-                <a class="activity-row" href="<?= base_url('/customers/' . $customer['id'] . '/edit') ?>">
-                    <span class="record-avatar avatar-blue"><?php if ($avatarUrl): ?><img src="<?= esc($avatarUrl, 'attr') ?>" alt=""><?php else: ?><?= esc($initial) ?><?php endif; ?></span>
-                    <span class="activity-copy"><strong><?= esc($customer['full_name']) ?></strong><small><?= esc($customer['email']) ?></small></span>
-                    <time><?= ! empty($customer['created_at']) ? date('M j', strtotime($customer['created_at'])) : '—' ?></time>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </article>
 
-    <article class="panel">
-        <div class="panel-header">
-            <div><p class="eyebrow">Team</p><h2>Latest members</h2></div>
-            <a class="text-link" href="<?= base_url('/users') ?>">View all <span>→</span></a>
-        </div>
-        <div class="activity-list">
-            <?php if (empty($recentUsers)): ?><div class="empty-compact">No team records yet.</div><?php endif; ?>
-            <?php foreach ($recentUsers as $user): ?>
-                <?php $parts = array_filter(explode(' ', $user['full_name'])); $initial = strtoupper(substr($parts[0] ?? 'U', 0, 1) . substr(end($parts) ?: '', 0, 1)); $avatarFile = basename((string) ($user['avatar'] ?? '')); $avatarUrl = $avatarFile && is_file(FCPATH . 'uploads/avatars/' . $avatarFile) ? base_url('uploads/avatars/' . rawurlencode($avatarFile)) : null; ?>
-                <a class="activity-row" href="<?= base_url('/users/' . $user['id'] . '/edit') ?>">
-                    <span class="record-avatar avatar-purple"><?php if ($avatarUrl): ?><img src="<?= esc($avatarUrl, 'attr') ?>" alt=""><?php else: ?><?= esc($initial) ?><?php endif; ?></span>
-                    <span class="activity-copy"><strong><?= esc($user['full_name']) ?></strong><small>@<?= esc($user['username']) ?></small></span>
-                    <time><?= ! empty($user['created_at']) ? date('M j', strtotime($user['created_at'])) : '—' ?></time>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    </article>
-</section>
 <?= $this->endSection() ?>

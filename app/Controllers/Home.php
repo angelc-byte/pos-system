@@ -8,4 +8,15 @@ class Home extends BaseController
     {
         return view('welcome_message');
     }
+
+
+    public function guest()
+    {
+        session()->set([
+            'isGuest' => true,
+            'logged_in' => false
+        ]);
+
+        return redirect()->to('/');
+    }
 }

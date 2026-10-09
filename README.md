@@ -1,6 +1,6 @@
-# Northstar POS Account Management
+# The Daily Fit POS Account Management
 
-Northstar POS is a CodeIgniter 4 project for managing customer and staff accounts. It implements the IT0049 TFA4 requirements for sessions and authentication while preserving the existing database-backed records from TFA3.
+The Daily Fit POS is a CodeIgniter 4 project for managing customer and staff accounts. It implements the IT0049 TFA4 requirements for sessions and authentication while preserving the existing database-backed records from TFA3.
 
 ## Features
 
