@@ -609,10 +609,10 @@
                                 <div class="row-actions">
                                     
 <a
-    class="action-button edit-staff-button"
-    href="<?= base_url('/users/' . $user['id'] . '/edit') ?>"
-    aria-label="Edit <?= esc($user['full_name'], 'attr') ?>"
-    title="Edit staff member"
+    class="action-button"
+    href="<?= site_url('customers/' . $customer['id'] . '/edit') ?>"
+    aria-label="Edit customer"
+    title="Edit customer"
 >
     <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -627,7 +627,7 @@
         aria-hidden="true"
     >
         <path d="M12 20h9"/>
-        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4L16.5 3.5Z"/>
+        <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L8 18l-4 1 1-4Z"/>
     </svg>
 </a>
 
