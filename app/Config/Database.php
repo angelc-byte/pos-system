@@ -206,7 +206,10 @@ class Database extends Config
                 $this->default['password'] = isset($parts['pass']) ? urldecode($parts['pass']) : '';
                 $this->default['database'] = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
                 $this->default['port'] = $parts['port'] ?? 4000;
-                $this->default['encrypt'] = true;
+                // CodeIgniter's MySQLi driver enables TLS only when `encrypt`
+                // is an array. An empty array requests MySQL TLS using the
+                // runtime's trusted certificate store.
+                $this->default['encrypt'] = [];
             }
         } elseif (getenv('TIDB_HOST') || getenv('MYSQL_HOST')) {
             $this->default['hostname'] = getenv('TIDB_HOST') ?: getenv('MYSQL_HOST');
@@ -214,10 +217,11 @@ class Database extends Config
             $this->default['password'] = getenv('TIDB_PASSWORD') ?: getenv('MYSQL_PASSWORD') ?: '';
             $this->default['database'] = getenv('TIDB_DATABASE') ?: getenv('MYSQL_DATABASE') ?: '';
             $this->default['port'] = (int) (getenv('TIDB_PORT') ?: getenv('MYSQL_PORT') ?: 4000);
-            $this->default['encrypt'] = filter_var(
+            $sslEnabled = filter_var(
                 getenv('TIDB_ENABLE_SSL') ?: getenv('MYSQL_SSL') ?: 'true',
                 FILTER_VALIDATE_BOOL,
             );
+            $this->default['encrypt'] = $sslEnabled ? [] : false;
         }
 
         // Ensure that we always set the database group to 'tests' if

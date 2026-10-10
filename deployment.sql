@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS sales (
 CREATE TABLE IF NOT EXISTS ci_sessions (
   id VARCHAR(128) NOT NULL,
   ip_address VARCHAR(45) NOT NULL,
-  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  timestamp INT UNSIGNED DEFAULT 0 NOT NULL,
   data BLOB NOT NULL,
   PRIMARY KEY (id),
   KEY ci_sessions_timestamp (timestamp)
