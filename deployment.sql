@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(150) NOT NULL,
   full_name VARCHAR(120) NOT NULL,
   avatar VARCHAR(255) NULL,
+  role VARCHAR(32) NOT NULL DEFAULT 'staff',
   created_at DATETIME NULL,
   PRIMARY KEY (id),
   UNIQUE KEY users_username_unique (username),
