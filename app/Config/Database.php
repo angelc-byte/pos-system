@@ -194,6 +194,32 @@ class Database extends Config
     {
         parent::__construct();
 
+        $databaseUrl = getenv('TIDB_DATABASE_URL')
+            ?: getenv('MYSQL_URL')
+            ?: getenv('DATABASE_URL');
+
+        if ($databaseUrl) {
+            $parts = parse_url($databaseUrl);
+            if (is_array($parts)) {
+                $this->default['hostname'] = $parts['host'] ?? $this->default['hostname'];
+                $this->default['username'] = isset($parts['user']) ? urldecode($parts['user']) : '';
+                $this->default['password'] = isset($parts['pass']) ? urldecode($parts['pass']) : '';
+                $this->default['database'] = isset($parts['path']) ? ltrim($parts['path'], '/') : '';
+                $this->default['port'] = $parts['port'] ?? 4000;
+                $this->default['encrypt'] = true;
+            }
+        } elseif (getenv('TIDB_HOST') || getenv('MYSQL_HOST')) {
+            $this->default['hostname'] = getenv('TIDB_HOST') ?: getenv('MYSQL_HOST');
+            $this->default['username'] = getenv('TIDB_USER') ?: getenv('MYSQL_USER') ?: '';
+            $this->default['password'] = getenv('TIDB_PASSWORD') ?: getenv('MYSQL_PASSWORD') ?: '';
+            $this->default['database'] = getenv('TIDB_DATABASE') ?: getenv('MYSQL_DATABASE') ?: '';
+            $this->default['port'] = (int) (getenv('TIDB_PORT') ?: getenv('MYSQL_PORT') ?: 4000);
+            $this->default['encrypt'] = filter_var(
+                getenv('TIDB_ENABLE_SSL') ?: getenv('MYSQL_SSL') ?: 'true',
+                FILTER_VALIDATE_BOOL,
+            );
+        }
+
         // Ensure that we always set the database group to 'tests' if
         // we are currently running an automated test suite, so that
         // we don't overwrite live data on accident.

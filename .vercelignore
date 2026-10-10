@@ -1,0 +1,6 @@
+.git
+tests
+vendor
+phpunit.dist.xml
+README.md
+pos_system.sql
