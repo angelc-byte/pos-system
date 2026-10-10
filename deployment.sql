@@ -1,6 +1,11 @@
 SET NAMES utf8mb4;
 SET time_zone = '+08:00';
 
+CREATE DATABASE IF NOT EXISTS pos_system
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+USE pos_system;
+
 CREATE TABLE IF NOT EXISTS users (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   username VARCHAR(80) NOT NULL,
